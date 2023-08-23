@@ -1,6 +1,0 @@
-if game.PlaceId == 6516141723 then  --- Doors Lobby
-loadstring(game:HttpGet("https://pastebin.com/raw/YjZ1xwyE"))()
-loadstring(game:HttpGet("https://pastebin.com/raw/dEJjxbgc"))()
-  elseif game.PlaceId == 6839171747 then --- Doors In Game
-loadstring(game:HttpGet("https://pastebin.com/raw/YjZ1xwyE"))()
-loadstring(game:HttpGet("https://pastebin.com/raw/dEJjxbgc"))()
