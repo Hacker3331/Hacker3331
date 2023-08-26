@@ -3,6 +3,7 @@ local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shl
 local Window = OrionLib:MakeWindow({Name = "Hacker Hub | 💥 Flag Wars!", HidePremium = false, IntroText = "Welcome to Hacker Hub", SaveConfig = false, ConfigFolder = "OrionTest"})
 
 --Values
+
 _G.gunMod = true
 _G.circleAim = true
 _G.infiniteAmmo = true
@@ -15,51 +16,51 @@ _G.infiniteYield = true
 --Functions
 
 function gunMod()
-	  while _G.gunMod == true do
-	      loadstring(game:HttpGet("https://raw.githubusercontent.com/DylanIsAKingL/Lua-Scripts/main/flag-wars-gunmod.lua"))()
-	  end
+    while _G.gunMod == true do
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/DylanIsAKingL/Lua-Scripts/main/flag-wars-gunmod.lua"))()
+    end
    end
 
 function circleAim()
-	   while _G.circleAim == true do
-	       loadstring(game:HttpGet("https://pastebin.com/raw/gMeAWLfS"))()
-	   end
+    while _G.circleAim == true do
+	loadstring(game:HttpGet("https://pastebin.com/raw/gMeAWLfS"))()
+     end
     end   
 
 function infiniteAmmo()
-	  while _G.infiniteAmmo == true do
-	      loadstring(game:HttpGet("https://pastebin.com/raw/wYPRhavC"))()
-	  end
+    while _G.infiniteAmmo == true do
+	loadstring(game:HttpGet("https://pastebin.com/raw/wYPRhavC"))()
+    end
    end
 
 function fullBright()
-	  while _G.fullBright == true do
-	      loadstring(game:HttpGet("https://pastebin.com/raw/FGxu3Kap"))()
-	  end
+    while _G.fullBright == true do
+	loadstring(game:HttpGet("https://pastebin.com/raw/FGxu3Kap"))()
+    end
    end
 
 function noClip()
-	  while _G.noClip == true do
-	      loadstring(game:HttpGet("https://pastebin.com/raw/vgUPcFNh"))()
-	  end
+    while _G.noClip == true do
+        loadstring(game:HttpGet("https://pastebin.com/raw/vgUPcFNh"))()
+    end
    end
 
 function espPlayer()
-	  while _G.espPlayer == true do
-		    loadstring(game:HttpGet('https://raw.githubusercontent.com/Hypeploits/Hypeploits/main/Flag%20Wars'))()
-	  end
+    while _G.espPlayer == true do
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/Hypeploits/Hypeploits/main/Flag%20Wars'))()
+    end
    end
 
 function reJoin()
-	  while _G.reJoin == true do
+    while _G.reJoin == true do
         loadstring(game:HttpGet("https://pastebin.com/raw/CJVynp6g"))()
-	  end
+    end
    end
 
 function infiniteYield()
-	  while _G.infiniteYield == true do
-		  loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
-	  end
+    while _G.infiniteYield == true do
+	loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
+    end
    end
 
 -- Tabs
@@ -94,55 +95,54 @@ CreditTab = Window:MakeTab({
 	PremiumOnly = false
 })
 
-'
 -- Toggles
 
 MainTab:AddButton({
-	Name = "Gun Mod",
-	Callback = function()
-      		print("button pressed")
-  	end    
+    Name = "Gun Mod",
+    Callback = function()
+            print("button pressed")
+    end    
 })
 
 MiscTab:AddButton({
-	Name = "Rejoin The Server",
-	Callback = function()
-      		print("button pressed")
-  	end    
+    Name = "Rejoin The Server",
+    Callback = function()
+      	    print("button pressed")
+    end    
 })
 
 MiscTab:AddButton({
-	Name = "Infinite Yield",
-	Callback = function()
-      		print("button pressed")
-  	end    
+    Name = "Infinite Yield",
+    Callback = function()
+      	     print("button pressed")
+    end    
 })
 
 AimTab:AddToggle({
-	Name = "Circle Aim",
-	Default = false,
-	Callback = function(Value)
-		_G.circleAim = Value
-		circleAim()
-	end    
+   Name = "Circle Aim",
+   Default = false,
+   Callback = function(Value)
+       _G.circleAim = Value
+       circleAim()
+   end    
 })
 
 MainTab:AddToggle({
-	Name = "Infinite Ammo",
-	Default = false,
-	Callback = function(Value)
-		_G.infiniteAmmo = Value
-		infiniteAmmo()
-	end    
+    Name = "Infinite Ammo",
+    Default = false,
+    Callback = function(Value)
+        _G.infiniteAmmo = Value
+	infiniteAmmo()
+    end    
 })
 
 MainTab:AddToggle({
-	Name = "Fullbright",
-	Default = false,
-	Callback = function(Value)
-		_G.fullBright = Value
-		fullBright()
-	end    
+    Name = "Fullbright",
+    Default = false,
+    Callback = function(Value)
+	_G.fullBright = Value
+	fullBright()
+    end    
 })
 
 MainTab:AddToggle({
@@ -155,12 +155,12 @@ MainTab:AddToggle({
 })
 
 MainTab:AddToggle({
-	Name = "ESP Player",
-	Default = false,
-	Callback = function(Value)
-		_G.espPlayer = Value
-		espPlayer()
-	end    
+    Name = "ESP Player",
+    Default = false,
+    Callback = function(Value)
+	_G.espPlayer = Value
+	espPlayer()
+    end    
 })
 
 -- Sliders
