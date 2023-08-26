@@ -166,29 +166,29 @@ MainTab:AddToggle({
 -- Sliders
 
 PlayersTab:AddSlider({
-	Name = "SpeedHack",
-	Min = 16,
-	Max = 110,
-	Default = 5,
-	Color = Color3.fromRGB(255,255,255),
-	Increment = 1,
-	ValueName = "SH",
-	Callback = function(Value)
-		game.Players.LocalPlayers.Character.Humanoid.WalkSpeed = Value
-	end    
+    Name = "Speed Hack",
+    Min = 16,
+    Max = 110,
+    Default = 5,
+    Color = Color3.fromRGB(255,255,255),
+    Increment = 1,
+    ValueName = "SH",
+    Callback = function(Value)
+	game.Players.LocalPlayers.Character.Humanoid.WalkSpeed = Value
+    end    
 })
 
 PlayersTab:AddSlider({
-	Name = "JumpPower",
-	Min = 16,
-	Max = 30,
-	Default = 5,
-	Color = Color3.fromRGB(255,255,255),
-	Increment = 1,
-	ValueName = "JP",
-	Callback = function(Value)
-		game.Players.LocalPlayers.Character.Humanoid.JumpPower = Value
-	end    
+    Name = "JumpPower",
+    Min = 16,
+    Max = 30,
+    Default = 5,
+    Color = Color3.fromRGB(255,255,255),
+    Increment = 1,
+    ValueName = "JP",
+    Callback = function(Value)
+	game.Players.LocalPlayers.Character.Humanoid.JumpPower = Value
+    end    
 })
 
 -- Label 
