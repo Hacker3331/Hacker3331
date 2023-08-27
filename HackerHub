@@ -1,17 +1,17 @@
 if game.PlaceId == 3214114884 then
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
-local Window = OrionLib:MakeWindow({Name = "Hacker Hub | 💥 Flag Wars!", HidePremium = false, IntroText = "Welcome to Hacker Hub", SaveConfig = false, ConfigFolder = "OrionTest"})
+local Window = OrionLib:MakeWindow({Name = "Hacker Hub | [💰2x] Flag Wars!", HidePremium = false, IntroText = "Welcome to Hacker Hub", SaveConfig = false, ConfigFolder = "OrionTest"})
 
 --Values
 
 _G.gunMod = true
 _G.circleAim = true
 _G.infiniteAmmo = true
-_G.fullBright = true
 _G.noClip = true
 _G.espPlayer = true
 _G.reJoin = true
 _G.infiniteYield = true
+_G.silentAim = true
 
 --Functions
 
@@ -24,18 +24,18 @@ function gunMod()
 function circleAim()
     while _G.circleAim == true do
 	loadstring(game:HttpGet("https://pastebin.com/raw/gMeAWLfS"))()
-     end
-    end   
+    end
+   end   
+
+function silentAim()
+    while _G.silentAim == true do
+        loadstring(game:HttpGet("https://pastebin.com/raw/R6wdnuXL"))()
+    end
+   end
 
 function infiniteAmmo()
     while _G.infiniteAmmo == true do
 	loadstring(game:HttpGet("https://pastebin.com/raw/wYPRhavC"))()
-    end
-   end
-
-function fullBright()
-    while _G.fullBright == true do
-	loadstring(game:HttpGet("https://pastebin.com/raw/FGxu3Kap"))()
     end
    end
 
@@ -89,8 +89,8 @@ MiscTab = Window:MakeTab({
 	PremiumOnly = false
 })
 
-CreditTab = Window:MakeTab({
-	Name = "Credits",
+DevTab = Window:MakeTab({
+	Name = "Developer",
 	Icon = "rbxassetid://4483345998",
 	PremiumOnly = false
 })
@@ -136,22 +136,22 @@ MainTab:AddToggle({
     end    
 })
 
-MainTab:AddToggle({
-    Name = "Fullbright",
+AimTab:AddToggle({
+    Name = "Silent Aim",
     Default = false,
     Callback = function(Value)
-	_G.fullBright = Value
-	fullBright()
+	_G.silentAim = Value
+	silentAim()
     end    
 })
 
 MainTab:AddToggle({
-	Name = "Noclip",
-	Default = false,
-	Callback = function(Value)
-		_G.noClip = Value
-		noClip()
-	end    
+    Name = "Noclip",
+    Default = false,
+    Callback = function(Value)
+	_G.noClip = Value
+	noClip()
+    end    
 })
 
 MainTab:AddToggle({
@@ -193,7 +193,7 @@ PlayerTab:AddSlider({
 
 -- Label 
 
-CreditTab:AddLabel("Credit : Hacker3331")
+DevTab:AddLabel("Made by Hacker3331")
 
 end
 OrionLib:Init()
