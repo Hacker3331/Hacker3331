@@ -165,7 +165,7 @@ MainTab:AddToggle({
 
 -- Sliders
 
-PlayersTab:AddSlider({
+PlayerTab:AddSlider({
     Name = "Speed Hack",
     Min = 16,
     Max = 110,
@@ -178,7 +178,7 @@ PlayersTab:AddSlider({
     end    
 })
 
-PlayersTab:AddSlider({
+PlayerTab:AddSlider({
     Name = "JumpPower",
     Min = 16,
     Max = 30,
@@ -193,7 +193,7 @@ PlayersTab:AddSlider({
 
 -- Label 
 
-CreditTab:AddLabel("Credits : Hacker3331")
+CreditTab:AddLabel("Credit : Hacker3331")
 
 end
 OrionLib:Init()
