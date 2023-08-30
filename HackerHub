@@ -1,6 +1,6 @@
 if game.PlaceId == 3214114884 then
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
-local Window = OrionLib:MakeWindow({Name = "Hacker Hub | [💰2x] Flag Wars!", HidePremium = false, IntroText = "Welcome to Hacker Hub", SaveConfig = false, ConfigFolder = "OrionTest"})
+local Window = OrionLib:MakeWindow({Name = "Hacker Hub | 💥 Flag Wars!", HidePremium = false, IntroText = "Welcome to Hacker Hub", SaveConfig = false, ConfigFolder = "OrionTest"})
 
 --Values
 
@@ -16,16 +16,22 @@ _G.silentAim = true
 --Functions
 
 function gunMod()
-    while _G.gunMod == true do
-	loadstring(game:HttpGet("https://raw.githubusercontent.com/DylanIsAKingL/Lua-Scripts/main/flag-wars-gunmod.lua"))()
-    end
+	while _G.gunMod == true do
+		OrionLib:MakeNotification({
+			Name = "Credit",
+			Content = "Credits : DylanIsKing",
+			Image = "rbxassetid://4483345998",
+			Time = 8
+		})
+	    loadstring(game:HttpGet("https://raw.githubusercontent.com/DylanIsAKingL/Lua-Scripts/main/flag-wars-gunmod.lua"))()
+	end
    end
 
 function circleAim()
-    while _G.circleAim == true do
-	loadstring(game:HttpGet("https://pastebin.com/raw/gMeAWLfS"))()
-    end
-   end   
+	while _G.circleAim == true do
+	    loadstring(game:HttpGet("https://pastebin.com/raw/gMeAWLfS"))()
+	end
+   end
 
 function silentAim()
     while _G.silentAim == true do
@@ -46,9 +52,15 @@ function noClip()
    end
 
 function espPlayer()
-    while _G.espPlayer == true do
-        loadstring(game:HttpGet('https://raw.githubusercontent.com/Hypeploits/Hypeploits/main/Flag%20Wars'))()
-    end
+	while _G.espPlayer == true do
+		OrionLib:MakeNotification({
+			Name = "Credit",
+			Content = "Credits : Hypeploits",
+			Image = "rbxassetid://4483345998",
+			Time = 8
+		})
+		loadstring(game:HttpGet('https://raw.githubusercontent.com/Hypeploits/Hypeploits/main/Flag%20Wars'))()
+	end
    end
 
 function reJoin()
@@ -58,11 +70,16 @@ function reJoin()
    end
 
 function infiniteYield()
-    while _G.infiniteYield == true do
-	loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
-    end
+	while _G.infiniteYield == true do
+		OrionLib:MakeNotification({
+			Name = "Credit",
+			Content = "Credits : EdgeIY",
+			Image = "rbxassetid://4483345998",
+			Time = 8
+		})
+		loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
+	end
    end
-
 -- Tabs
 
 MainTab = Window:MakeTab({
