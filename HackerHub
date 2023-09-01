@@ -21,7 +21,7 @@ function gunMod()
 			Name = "Credit",
 			Content = "Credits : DylanIsKing",
 			Image = "rbxassetid://4483345998",
-			Time = 8
+			Time = 1
 		})
 	    loadstring(game:HttpGet("https://raw.githubusercontent.com/DylanIsAKingL/Lua-Scripts/main/flag-wars-gunmod.lua"))()
 	end
@@ -57,7 +57,7 @@ function espPlayer()
 			Name = "Credit",
 			Content = "Credits : Hypeploits",
 			Image = "rbxassetid://4483345998",
-			Time = 8
+			Time = 1
 		})
 		loadstring(game:HttpGet('https://raw.githubusercontent.com/Hypeploits/Hypeploits/main/Flag%20Wars'))()
 	end
@@ -75,11 +75,12 @@ function infiniteYield()
 			Name = "Credit",
 			Content = "Credits : EdgeIY",
 			Image = "rbxassetid://4483345998",
-			Time = 8
+			Time = 1
 		})
 		loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
 	end
    end
+
 -- Tabs
 
 MainTab = Window:MakeTab({
@@ -208,9 +209,11 @@ PlayerTab:AddSlider({
     end    
 })
 
--- Label 
+--Section
 
-DevTab:AddLabel("Made by Hacker3331")
+local Section = DevTab:AddSection({
+	Name = "Made By Hacker3331"
+})
 
 end
 OrionLib:Init()
