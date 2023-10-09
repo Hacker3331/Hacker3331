@@ -4,6 +4,9 @@ game.Players.PlayerAdded:Connect(function(player)
         head.Transparency = 1
 
         for _, item in head:GetChildren() do
-            if string.find(string.lower(item.Name), "face") Then
+            if string.find(string.lower(item.Name), "face") then
                 item:Destroy()
+            end
+        end
+    end)
 end)
