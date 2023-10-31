@@ -4,7 +4,7 @@ game.Players.PlayerAdded:Connect(function(player)
       local Humanoid = chr:WaitForChild("Humanoid")
       local Desc = Humanoid:GetAppliedDescription()
       Desc.RightLeg = 139607718
-
-     end)
-    end)
+      
+    end
+  end)
 end)
