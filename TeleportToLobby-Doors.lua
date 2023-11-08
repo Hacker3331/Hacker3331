@@ -1,4 +1,4 @@
-local GameId = "6516141723" -- Change this ID to the games ID which you want players to teleport to
+local GameId = "1234567890" -- Change this ID of games you want..
 
 function (Player)
     local FromChar = game.Players:GetPlayerFromCharacter(Player.Parent)
