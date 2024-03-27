@@ -1,4 +1,4 @@
-local GameId = "1234567890" -- Change this ID of games you want..
+local GameId = "1234567890" -- Change this ID of games of the lobby..
 
 function (Player)
     local FromChar = game.Players:GetPlayerFromCharacter(Player.Parent)
