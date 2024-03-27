@@ -32,6 +32,3 @@ uis.InputBegan:Connect(function(began)
 		end
 	end
 end)
-
-Credit : BOBIK & Maxi
-Link Channel : https://www.youtube.com/@B.O.B__
