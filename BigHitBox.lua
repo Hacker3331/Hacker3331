@@ -1,62 +1,22 @@
-local players = game:GetService("Players")
-local local_player = players.LocalPlayer
-local run_service = game:GetService("RunService")
-local starter_gui = game:GetService("StarterGui")
+_G.HeadSize = 10 --Change the size of the box as what you want..
+_G.Disabled = true --Dont change this if you don't want the script does'nt work..
 
-local function extend_hitboxes(delta_time)
-    local character = local_player.Character
-
-    if not character then
-        return
-    end
-
-    local humanoid_root_part = character:FindFirstChild("HumanoidRootPart")
-
-    if not humanoid_root_part then
-        return
-    end
-
-    for _, player in pairs(players:GetPlayers()) do
-        if player == local_player then
-            continue
-        end
-
-        local player_character = player.Character
-        
-        if not player_character then
-            continue
-        end
-
-        local player_humanoid_root_part = player_character:FindFirstChild("HumanoidRootPart")
-
-        if not player_humanoid_root_part then
-            continue
-        end
-
-        local are_touching = false
-
-        for _, part in pairs(workspace:GetPartsInPart(player_humanoid_root_part)) do
-            if part:IsDescendantOf(character) then
-                are_touching = true
-                break
+game:GetService('RunService').RenderStepped:Connect(function()
+    if _G.Disabled then
+        for _, player in ipairs(game:GetService('Players'):GetPlayers()) do
+            if player.Name ~= game:GetService('Players').LocalPlayer.Name then
+                pcall(function()
+                    local character = player.Character
+                    local humanoidRootPart = character and character:FindFirstChild("HumanoidRootPart")
+                    if humanoidRootPart then
+                        humanoidRootPart.Size = Vector3.new(_G.HeadSize, _G.HeadSize, _G.HeadSize)
+                        humanoidRootPart.Transparency = 0.7
+                        humanoidRootPart.BrickColor = BrickColor.new("Bright red") -- Changed color to red
+                        humanoidRootPart.Material = Enum.Material.Neon -- Changed material to Neon
+                        humanoidRootPart.CanCollide = false
+                    end
+                end
             end
-        end
-
-        if player.Team == local_player.Team or are_touching then
-            player_humanoid_root_part.Size = Vector3.new(8, 8, 8)
-            player_humanoid_root_part.Transparency = 0.95
-            player_humanoid_root_part.BrickColor = player.Team.TeamColor
-            player_humanoid_root_part.Shape = Enum.PartType.Ball
-            player_humanoid_root_part.CanCollide = false
-            continue
-        end
-
-        player_humanoid_root_part.Size = Vector3.new(8, 8, 8)
-        player_humanoid_root_part.Transparency = 0.7
-        player_humanoid_root_part.BrickColor = player.Team.TeamColor
-        player_humanoid_root_part.Shape = Enum.PartType.Ball
-        player_humanoid_root_part.CanCollide = true
-    end
-end
-
-run_service.Stepped:Connect(extend_hitboxes)
+        end)
+    end)
+end})
