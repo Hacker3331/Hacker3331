@@ -3,7 +3,7 @@ _G.Disabled = true --Dont change this if you don't want the script does'nt work.
 
 game:GetService('RunService').RenderStepped:Connect(function()
     if _G.Disabled then
-        for _, player in ipairs(game:GetService('Players'):GetPlayers()) do
+        for _, player in pairs(game:GetService('Players'):GetPlayers()) do
             if player.Name ~= game:GetService('Players').LocalPlayer.Name then
                 pcall(function()
                     local character = player.Character
