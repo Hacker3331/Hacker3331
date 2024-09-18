@@ -1,0 +1,15 @@
+--Only work on Studio...
+--Put the script on ServerScriptService --> **Script**
+game.Players.PlayerAdded:Connect(function(plr)
+    plr.Chatted:Connect(function(msg)
+        msg = string.lower(msg)
+        
+        if msg == "test" then
+            *Script here*
+        end
+
+        if msg == "test2" then
+            *Script here*
+        end
+    end)
+end)
