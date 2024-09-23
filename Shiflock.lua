@@ -1,18 +1,15 @@
--- Gui to Lua
--- Version: 3.2
-
--- Instances:
-
 local ShiftlockStarterGui = Instance.new("ScreenGui")
 local ImageButton = Instance.new("ImageButton")
 
---Properties:
 
 ShiftlockStarterGui.Name = "Shiftlock (StarterGui)"
-ShiftlockStarterGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
-ShiftlockStarterGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+ShiftlockStarterGui.Parent = game.CoreGui
+ShiftlockStarterGui.ZIndexBehavior =  Enum.ZIndexBehavior.Sibling
+ShiftlockStarterGui.ResetOnSpawn = false
 
 ImageButton.Parent = ShiftlockStarterGui
+ImageButton.Active = true
+ImageButton.Draggable = true
 ImageButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 ImageButton.BackgroundTransparency = 1.000
 ImageButton.Position = UDim2.new(0.921914339, 0, 0.552375436, 0)
@@ -49,25 +46,43 @@ local function TLQOYN_fake_script() -- ImageButton.ShiftGUI
 	local active = false
 	local ENABLED_OFFSET = CFrame.new(1.7, 0, 0)
 	local DISABLED_OFFSET = CFrame.new(-1.7, 0, 0)
+local rootPos = Vector3.new(0,0,0)
+local function UpdatePos()
+if player.Character and player.Character:FindFirstChildOfClass"Humanoid" and player.Character:FindFirstChildOfClass"Humanoid".RootPart then
+rootPos = player.Character:FindFirstChildOfClass"Humanoid".RootPart.Position
+end
+end
 	local function UpdateImage(STATE)
 		button.Image = states[STATE]
 	end
 	local function UpdateAutoRotate(BOOL)
-		humanoid.AutoRotate = BOOL
-	end
-	local function GetUpdatedCameraCFrame(ROOT, CAMERA)
-		return CFrame.new(root.Position, Vector3.new(CAMERA.CFrame.LookVector.X * MAX_LENGTH, root.Position.Y, CAMERA.CFrame.LookVector.Z * MAX_LENGTH))
-	end
+if player.Character and player.Character:FindFirstChildOfClass"Humanoid" then
+player.Character:FindFirstChildOfClass"Humanoid".AutoRotate = BOOL
+end
+end
+	local function GetUpdatedCameraCFrame()
+if game:GetService"Workspace".CurrentCamera then
+return CFrame.new(rootPos, Vector3.new(game:GetService"Workspace".CurrentCamera.CFrame.LookVector.X * MAX_LENGTH, rootPos.Y, game:GetService"Workspace".CurrentCamera.CFrame.LookVector.Z * MAX_LENGTH))
+end
+end
 	local function EnableShiftlock()
+UpdatePos()
 		UpdateAutoRotate(false)
 		UpdateImage("ON")
-		root.CFrame = GetUpdatedCameraCFrame(root, camera)
-		camera.CFrame = camera.CFrame * ENABLED_OFFSET
+if player.Character and player.Character:FindFirstChildOfClass"Humanoid" and player.Character:FindFirstChildOfClass"Humanoid".RootPart then
+player.Character:FindFirstChildOfClass"Humanoid".RootPart.CFrame = GetUpdatedCameraCFrame()
+end
+if game:GetService"Workspace".CurrentCamera then
+game:GetService"Workspace".CurrentCamera.CFrame = camera.CFrame * ENABLED_OFFSET
+end
 	end
 	local function DisableShiftlock()
+UpdatePos()
 		UpdateAutoRotate(true)
 		UpdateImage("OFF")
-		camera.CFrame = camera.CFrame * DISABLED_OFFSET
+		if game:GetService"Workspace".CurrentCamera then
+game:GetService"Workspace".CurrentCamera.CFrame = camera.CFrame * DISABLED_OFFSET
+end
 		pcall(function()
 			active:Disconnect()
 			active = nil
