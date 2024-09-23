@@ -1,1 +1,242 @@
-local v0=tonumber;local v1=string.byte;local v2=string.char;local v3=string.sub;local v4=string.gsub;local v5=string.rep;local v6=table.concat;local v7=table.insert;local v8=math.ldexp;local v9=getfenv or function() return _ENV;end ;local v10=setmetatable;local v11=pcall;local v12=select;local v13=unpack or table.unpack ;local v14=tonumber;local function v15(v16,v17,...) local v18=1;local v19;v16=v4(v3(v16,5),"..",function(v30) if (v1(v30,2)==79) then v19=v0(v3(v30,1,1));return "";else local v81=v2(v0(v30,16));if v19 then local v90=0;local v91;while true do if (v90==1) then return v91;end if (v90==0) then v91=v5(v81,v19);v19=nil;v90=1;end end else return v81;end end end);local function v20(v31,v32,v33) if v33 then local v82=(v31/((5 -3)^(v32-(2 -(878 -(282 + 595))))))%((3 -1)^(((v33-(2 -1)) -(v32-(620 -(555 + 64)))) + (932 -(857 + 74)))) ;return v82-(v82%(569 -(367 + (1838 -(1523 + 114))))) ;else local v83=(929 -(193 + 21 + 713))^(v32-(1 + 0)) ;return (((v31%(v83 + v83))>=v83) and 1) or (0 + 0) ;end end local function v21() local v34=v1(v16,v18,v18);v18=v18 + 1 ;return v34;end local function v22() local v35,v36=v1(v16,v18,v18 + (2 -0) );v18=v18 + (1067 -(68 + 997)) ;return (v36 * (1526 -(226 + 1044))) + v35 ;end local function v23() local v37=0 -0 ;local v38;local v39;local v40;local v41;while true do if (v37==((214 -97) -(32 + 85))) then v38,v39,v40,v41=v1(v16,v18,v18 + 3 + 0 );v18=v18 + 4 ;v37=1 + 0 ;end if (v37==(958 -(892 + 65))) then return (v41 * (40022563 -(23245697 -(87 + 263)))) + (v40 * 65536) + (v39 * (472 -216)) + v38 ;end end end local function v24() local v42=180 -(67 + 113) ;local v43;local v44;local v45;local v46;local v47;local v48;while true do if (v42==(2 + 0)) then v47=v20(v44,9 + 12 ,75 -44 );v48=((v20(v44,102 -70 )==(1 + 0)) and  -(3 -2)) or (953 -(802 + 150)) ;v42=7 -4 ;end if (v42==((0 + 0) -0)) then v43=v23();v44=v23();v42=(2 -1) + 0 ;end if (v42==(1000 -(915 + 82))) then if (v47==(0 -(0 -0))) then if (v46==(772 -((1948 -(760 + 987)) + 571))) then return v48 * (0 + 0) ;else v47=4 -3 ;v45=0 -(0 -0) ;end elseif (v47==(3234 -(1069 + 118))) then return ((v46==(0 -0)) and (v48 * (((8 + 852) -(814 + 45))/(0 -0)))) or (v48 * NaN) ;end return v8(v48,v4
+local ShiftlockStarterGui = Instance.new("ScreenGui")
+local ImageButton = Instance.new("ImageButton")
+
+
+ShiftlockStarterGui.Name = "Shiftlock (StarterGui)"
+ShiftlockStarterGui.Parent = game.CoreGui
+ShiftlockStarterGui.ZIndexBehavior =  Enum.ZIndexBehavior.Sibling
+ShiftlockStarterGui.ResetOnSpawn = false
+
+ImageButton.Parent = ShiftlockStarterGui
+ImageButton.Active = true
+ImageButton.Draggable = true
+ImageButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+ImageButton.BackgroundTransparency = 1.000
+ImageButton.Position = UDim2.new(0.921914339, 0, 0.552375436, 0)
+ImageButton.Size = UDim2.new(0.0636147112, 0, 0.0661305636, 0)
+ImageButton.SizeConstraint = Enum.SizeConstraint.RelativeXX
+ImageButton.Image = "http://www.roblox.com/asset/?id=182223762"
+
+-- Scripts:
+
+local function TLQOYN_fake_script() -- ImageButton.ShiftGUI 
+	local script = Instance.new('LocalScript', ImageButton)
+
+	local MobileCameraFramework = {}
+	local players = game:GetService("Players")
+	local runservice = game:GetService("RunService")
+	local CAS = game:GetService("ContextActionService")
+	local player = players.LocalPlayer
+	local character = player.Character or player.CharacterAdded:Wait()
+	local root = character:WaitForChild("HumanoidRootPart")
+	local humanoid = character.Humanoid
+	local camera = workspace.CurrentCamera
+	local button = script.Parent
+	
+	--Visiblity
+	uis = game:GetService("UserInputService")
+	ismobile = uis.TouchEnabled
+	button.Visible = ismobile
+	
+	local states = {
+		OFF = "rbxasset://textures/ui/mouseLock_off@2x.png",
+		ON = "rbxasset://textures/ui/mouseLock_on@2x.png"
+	}
+	local MAX_LENGTH = 900000
+	local active = false
+	local ENABLED_OFFSET = CFrame.new(1.7, 0, 0)
+	local DISABLED_OFFSET = CFrame.new(-1.7, 0, 0)
+local rootPos = Vector3.new(0,0,0)
+local function UpdatePos()
+if player.Character and player.Character:FindFirstChildOfClass"Humanoid" and player.Character:FindFirstChildOfClass"Humanoid".RootPart then
+rootPos = player.Character:FindFirstChildOfClass"Humanoid".RootPart.Position
+end
+end
+	local function UpdateImage(STATE)
+		button.Image = states[STATE]
+	end
+	local function UpdateAutoRotate(BOOL)
+if player.Character and player.Character:FindFirstChildOfClass"Humanoid" then
+player.Character:FindFirstChildOfClass"Humanoid".AutoRotate = BOOL
+end
+end
+	local function GetUpdatedCameraCFrame()
+if game:GetService"Workspace".CurrentCamera then
+return CFrame.new(rootPos, Vector3.new(game:GetService"Workspace".CurrentCamera.CFrame.LookVector.X * MAX_LENGTH, rootPos.Y, game:GetService"Workspace".CurrentCamera.CFrame.LookVector.Z * MAX_LENGTH))
+end
+end
+	local function EnableShiftlock()
+UpdatePos()
+		UpdateAutoRotate(false)
+		UpdateImage("ON")
+if player.Character and player.Character:FindFirstChildOfClass"Humanoid" and player.Character:FindFirstChildOfClass"Humanoid".RootPart then
+player.Character:FindFirstChildOfClass"Humanoid".RootPart.CFrame = GetUpdatedCameraCFrame()
+end
+if game:GetService"Workspace".CurrentCamera then
+game:GetService"Workspace".CurrentCamera.CFrame = camera.CFrame * ENABLED_OFFSET
+end
+	end
+	local function DisableShiftlock()
+UpdatePos()
+		UpdateAutoRotate(true)
+		UpdateImage("OFF")
+		if game:GetService"Workspace".CurrentCamera then
+game:GetService"Workspace".CurrentCamera.CFrame = camera.CFrame * DISABLED_OFFSET
+end
+		pcall(function()
+			active:Disconnect()
+			active = nil
+		end)
+	end
+	UpdateImage("OFF")
+	active = false
+	function ShiftLock()
+		if not active then
+			active = runservice.RenderStepped:Connect(function()
+				EnableShiftlock()
+			end)
+		else
+			DisableShiftlock()
+		end
+	end
+	local ShiftLockButton = CAS:BindAction("ShiftLOCK", ShiftLock, false, "On")
+	CAS:SetPosition("ShiftLOCK", UDim2.new(0.8, 0, 0.8, 0))
+	button.MouseButton1Click:Connect(function()
+		if not active then
+			active = runservice.RenderStepped:Connect(function()
+				EnableShiftlock()
+			end)
+		else
+			DisableShiftlock()
+		end
+	end)
+	return MobileCameraFramework
+	
+end
+coroutine.wrap(TLQOYN_fake_script)()
+local function OMQRQRC_fake_script() -- ShiftlockStarterGui.LocalScript 
+	local script = Instance.new('LocalScript', ShiftlockStarterGui)
+
+	local Players = game:GetService("Players")
+	local UserInputService = game:GetService("UserInputService")
+	local Settings = UserSettings()
+	local GameSettings = Settings.GameSettings
+	local ShiftLockController = {}
+	while not Players.LocalPlayer do
+		wait()
+	end
+	local LocalPlayer = Players.LocalPlayer
+	local Mouse = LocalPlayer:GetMouse()
+	local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
+	local ScreenGui, ShiftLockIcon, InputCn
+	local IsShiftLockMode = true
+	local IsShiftLocked = true
+	local IsActionBound = false
+	local IsInFirstPerson = false
+	ShiftLockController.OnShiftLockToggled = Instance.new("BindableEvent")
+	local function isShiftLockMode()
+		return LocalPlayer.DevEnableMouseLock and GameSettings.ControlMode == Enum.ControlMode.MouseLockSwitch and LocalPlayer.DevComputerMovementMode ~= Enum.DevComputerMovementMode.ClickToMove and GameSettings.ComputerMovementMode ~= Enum.ComputerMovementMode.ClickToMove and LocalPlayer.DevComputerMovementMode ~= Enum.DevComputerMovementMode.Scriptable
+	end
+	if not UserInputService.TouchEnabled then
+		IsShiftLockMode = isShiftLockMode()
+	end
+	local function onShiftLockToggled()
+		IsShiftLocked = not IsShiftLocked
+		ShiftLockController.OnShiftLockToggled:Fire()
+	end
+	local initialize = function()
+		print("enabled")
+	end
+	function ShiftLockController:IsShiftLocked()
+		return IsShiftLockMode and IsShiftLocked
+	end
+	function ShiftLockController:SetIsInFirstPerson(isInFirstPerson)
+		IsInFirstPerson = isInFirstPerson
+	end
+	local function mouseLockSwitchFunc(actionName, inputState, inputObject)
+		if IsShiftLockMode then
+			onShiftLockToggled()
+		end
+	end
+	local function disableShiftLock()
+		if ScreenGui then
+			ScreenGui.Parent = nil
+		end
+		IsShiftLockMode = false
+		Mouse.Icon = ""
+		if InputCn then
+			InputCn:disconnect()
+			InputCn = nil
+		end
+		IsActionBound = false
+		ShiftLockController.OnShiftLockToggled:Fire()
+	end
+	local onShiftInputBegan = function(inputObject, isProcessed)
+		if isProcessed then
+			return
+		end
+		if inputObject.UserInputType ~= Enum.UserInputType.Keyboard or inputObject.KeyCode == Enum.KeyCode.LeftShift or inputObject.KeyCode == Enum.KeyCode.RightShift then
+		end
+	end
+	local function enableShiftLock()
+		IsShiftLockMode = isShiftLockMode()
+		if IsShiftLockMode then
+			if ScreenGui then
+				ScreenGui.Parent = PlayerGui
+			end
+			if IsShiftLocked then
+				ShiftLockController.OnShiftLockToggled:Fire()
+			end
+			if not IsActionBound then
+				InputCn = UserInputService.InputBegan:connect(onShiftInputBegan)
+				IsActionBound = true
+			end
+		end
+	end
+	GameSettings.Changed:connect(function(property)
+		if property == "ControlMode" then
+			if GameSettings.ControlMode == Enum.ControlMode.MouseLockSwitch then
+				enableShiftLock()
+			else
+				disableShiftLock()
+			end
+		elseif property == "ComputerMovementMode" then
+			if GameSettings.ComputerMovementMode == Enum.ComputerMovementMode.ClickToMove then
+				disableShiftLock()
+			else
+				enableShiftLock()
+			end
+		end
+	end)
+	LocalPlayer.Changed:connect(function(property)
+		if property == "DevEnableMouseLock" then
+			if LocalPlayer.DevEnableMouseLock then
+				enableShiftLock()
+			else
+				disableShiftLock()
+			end
+		elseif property == "DevComputerMovementMode" then
+			if LocalPlayer.DevComputerMovementMode == Enum.DevComputerMovementMode.ClickToMove or LocalPlayer.DevComputerMovementMode == Enum.DevComputerMovementMode.Scriptable then
+				disableShiftLock()
+			else
+				enableShiftLock()
+			end
+		end
+	end)
+	LocalPlayer.CharacterAdded:connect(function(character)
+		if not UserInputService.TouchEnabled then
+			initialize()
+		end
+	end)
+	if not UserInputService.TouchEnabled then
+		initialize()
+		if isShiftLockMode() then
+			InputCn = UserInputService.InputBegan:connect(onShiftInputBegan)
+			IsActionBound = true
+		end
+	end
+	enableShiftLock()
+	return ShiftLockController
+	
+end
+coroutine.wrap(OMQRQRC_fake_script)()
