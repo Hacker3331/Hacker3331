@@ -1,6 +1,12 @@
+-- Gui to Lua
+-- Version: 3.2
+
+-- Instances:
+
 local ShiftlockStarterGui = Instance.new("ScreenGui")
 local ImageButton = Instance.new("ImageButton")
 
+--Properties:
 
 ShiftlockStarterGui.Name = "Shiftlock (StarterGui)"
 ShiftlockStarterGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
