@@ -11,7 +11,7 @@ ShiftLockGui.Name = "shiftlockk"
 ShiftLockGui.ResetOnSpawn = false
 ShiftLockGui.Parent = PlayerGui
 
-local ButtonIcon = Instance.new("ImageLabel")
+local ButtonIcon = Instance.new("ImageButton")
 ButtonIcon.Name = "btnIcon"
 ButtonIcon.Parent = ShiftLockGui
 ButtonIcon.BackgroundTransparency = 1
@@ -136,3 +136,4 @@ end)
 UserInputService.InputEnded:Connect(function(input)
     if input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.MouseButton1 then dragging = false end
 end)
+--Updated
