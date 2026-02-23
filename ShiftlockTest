@@ -43,7 +43,7 @@ Crosshair.AnchorPoint = Vector2.new(0.5, 0.5)
 Crosshair.Position = UDim2.new(0.5, 0, 0.5, -29)
 Crosshair.Size = UDim2.new(0, 27, 0, 27)
 Crosshair.BackgroundTransparency = 1
-Crosshair.Image = "rbxasset://textures/MouseLockedCursor.png"
+Crosshair.Image = "http://www.roblox.com/asset/?id=6480864794"
 Crosshair.Visible = false -- 初始关闭
 
 -- --- 2. 核心变量 ---
