@@ -247,7 +247,7 @@ local player = Players.LocalPlayer
 local mouse = player:GetMouse()
 
 -- KONFIGURASI CROSSHAIR (Ganti ID di bawah untuk ganti gambar)
-local CROSSHAIR_IMAGE = "rbxasset://textures/Cursors/CrosshairKit/Cursor001.png" -- Contoh ID PC
+local CROSSHAIR_IMAGE = "rbxasset://6480864794" -- Contoh ID PC
 local CROSSHAIR_SIZE = UDim2.new(0, 50, 0, 50) -- Ukuran crosshair
 local CROSSHAIR_COLOR = Color3.fromRGB(255, 255, 255) -- Warna (Putih)
 
