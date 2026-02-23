@@ -29,11 +29,11 @@ ButtonIcon.BackgroundTransparency = 1
 ButtonIcon.Position = UDim2.new(0.15, 0, 0.15, 0)
 ButtonIcon.Size = UDim2.new(0.7, 0, 0.7, 0)
 ButtonIcon.Image = "rbxasset://textures/ui/mouseLock_off.png"
-ButtonIcon.ImageColor3 = Color3.fromRGB(255, 0, 100)
+ButtonIcon.ImageColor3 = Color3.fromRGB(255, 255, 255)
 Instance.new("UICorner", LockButton).CornerRadius = UDim.new(1, 0)
 
 local ButtonStroke = Instance.new("UIStroke", LockButton)
-ButtonStroke.Color = Color3.fromRGB(255, 0, 100)
+ButtonStroke.Color = Color3.fromRGB(255, 255, 255)
 ButtonStroke.Thickness = 2
 
 local Crosshair = Instance.new("ImageLabel")
@@ -103,8 +103,8 @@ local function ToggleShiftLock(enabled)
         ButtonStroke.Color = Color3.fromRGB(0, 255, 150)
         RunService:BindToRenderStep("FinalNailSync", Enum.RenderPriority.Camera.Value + 1, enforceOfficialSync)
     else
-        ButtonIcon.ImageColor3 = Color3.fromRGB(255, 0, 100)
-        ButtonStroke.Color = Color3.fromRGB(255, 0, 100)
+        ButtonIcon.ImageColor3 = Color3.fromRGB(255, 255, 255)
+        ButtonStroke.Color = Color3.fromRGB(255, 255, 255)
         
         if userGameSettings then
             pcall(function() userGameSettings.RotationType = Enum.RotationType.MovementRelative end)
