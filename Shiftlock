@@ -11,14 +11,30 @@ ShiftLockGui.Name = "shiftlockk"
 ShiftLockGui.ResetOnSpawn = false
 ShiftLockGui.Parent = PlayerGui
 
-local ButtonIcon = Instance.new("ImageButton")
+local LockButton = Instance.new("ImageButton")
+LockButton.Name = "LockButton"
+LockButton.Parent = ShiftLockGui
+LockButton.AnchorPoint = Vector2.new(0.5, 0.5)
+LockButton.Position = UDim2.new(0.85, 0, 0.5, 0)
+LockButton.Size = UDim2.new(0.7, 0, 0.7, 0)
+LockButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+LockButton.BackgroundTransparency = 0.2
+LockButton.BorderSizePixel = 0
+LockButton.Image = ""
+
+local ButtonIcon = Instance.new("ImageLabel")
 ButtonIcon.Name = "btnIcon"
-ButtonIcon.Parent = ShiftLockGui
+ButtonIcon.Parent = LockButton
 ButtonIcon.BackgroundTransparency = 1
 ButtonIcon.Position = UDim2.new(0.15, 0, 0.15, 0)
 ButtonIcon.Size = UDim2.new(0.7, 0, 0.7, 0)
 ButtonIcon.Image = "rbxasset://textures/ui/mouseLock_off.png"
 ButtonIcon.ImageColor3 = Color3.fromRGB(255, 0, 100)
+Instance.new("UICorner", LockButton).CornerRadius = UDim.new(1, 0)
+
+local ButtonStroke = Instance.new("UIStroke", LockButton)
+ButtonStroke.Color = Color3.fromRGB(255, 0, 100)
+ButtonStroke.Thickness = 2
 
 local Crosshair = Instance.new("ImageLabel")
 Crosshair.Name = "ShiftLockCrosshair"
@@ -27,7 +43,7 @@ Crosshair.AnchorPoint = Vector2.new(0.5, 0.5)
 Crosshair.Position = UDim2.new(0.5, 0, 0.5, -29)
 Crosshair.Size = UDim2.new(0, 27, 0, 27)
 Crosshair.BackgroundTransparency = 1
-Crosshair.Image = "rbxasset://textures/MouseLockedCursor.png"
+Crosshair.Image = "http://www.roblox.com/asset/?id=6480864794"
 Crosshair.Visible = false -- 初始关闭
 
 -- --- 2. 核心变量 ---
@@ -88,6 +104,7 @@ local function ToggleShiftLock(enabled)
         RunService:BindToRenderStep("FinalNailSync", Enum.RenderPriority.Camera.Value + 1, enforceOfficialSync)
     else
         ButtonIcon.ImageColor3 = Color3.fromRGB(255, 0, 100)
+        ButtonStroke.Color = Color3.fromRGB(255, 0, 100)
         
         if userGameSettings then
             pcall(function() userGameSettings.RotationType = Enum.RotationType.MovementRelative end)
@@ -101,7 +118,7 @@ end
 
 -- --- 5. 事件绑定与重生逻辑 ---
 
-ButtonIcon.MouseButton1Click:Connect(function()
+LockButton.MouseButton1Click:Connect(function()
     ToggleShiftLock(not isShiftLockEnabled)
 end)
 
@@ -122,18 +139,17 @@ end)
 
 -- (保留你的拖拽逻辑)
 local dragging, dragStart, startPos
-ButtonIcon.InputBegan:Connect(function(input)
+LockButton.InputBegan:Connect(function(input)
     if input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.MouseButton1 then
-        dragging = true dragStart = input.Position startPos = ButtonIcon.Position
+        dragging = true dragStart = input.Position startPos = LockButton.Position
     end
 end)
-ButtonIcon.InputChanged:Connect(function(input)
+LockButton.InputChanged:Connect(function(input)
     if dragging and (input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.MouseMovement) then
         local delta = input.Position - dragStart
-        ButtonIcon.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+        LockButton.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
     end
 end)
 UserInputService.InputEnded:Connect(function(input)
     if input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.MouseButton1 then dragging = false end
 end)
---Updated
