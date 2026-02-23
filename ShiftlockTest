@@ -38,7 +38,7 @@ Crosshair.AnchorPoint = Vector2.new(0.5, 0.5)
 Crosshair.Position = UDim2.new(0.5, 0, 0.5, -29)
 Crosshair.Size = UDim2.new(0, 27, 0, 27)
 Crosshair.BackgroundTransparency = 1
-Crosshair.Image = "http://www.roblox.com/asset/?id=6480864794"
+Crosshair.Image = "rbxasset://textures/MouseLockedCursor.png"
 Crosshair.Visible = false -- 初始关闭
 
 -- --- 2. 核心变量 ---
@@ -99,7 +99,6 @@ local function ToggleShiftLock(enabled)
         RunService:BindToRenderStep("FinalNailSync", Enum.RenderPriority.Camera.Value + 1, enforceOfficialSync)
     else
         ButtonIcon.ImageColor3 = Color3.fromRGB(255, 0, 100)
-        ButtonStroke.Color = Color3.fromRGB(255, 0, 100)
         
         if userGameSettings then
             pcall(function() userGameSettings.RotationType = Enum.RotationType.MovementRelative end)
