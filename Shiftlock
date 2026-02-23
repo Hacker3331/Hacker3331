@@ -16,7 +16,7 @@ LockButton.Name = "LockButton"
 LockButton.Parent = ShiftLockGui
 LockButton.AnchorPoint = Vector2.new(0.5, 0.5)
 LockButton.Position = UDim2.new(0.85, 0, 0.5, 0)
-LockButton.Size = UDim2.new(0.7, 0, 0.7, 0)
+LockButton.Size = UDim2.new(0, 75, 0, 75)
 LockButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
 LockButton.BackgroundTransparency = 0.2
 LockButton.BorderSizePixel = 0
@@ -26,8 +26,8 @@ local ButtonIcon = Instance.new("ImageLabel")
 ButtonIcon.Name = "btnIcon"
 ButtonIcon.Parent = LockButton
 ButtonIcon.BackgroundTransparency = 1
-ButtonIcon.Position = UDim2.new(0.15, 0, 0.15, 0)
-ButtonIcon.Size = UDim2.new(0.7, 0, 0.7, 0)
+ButtonIcon.Position = UDim2.new(0.85, 0, 0.5, 0)
+ButtonIcon.Size = UDim2.new(0, 75, 0, 75)
 ButtonIcon.Image = "rbxasset://textures/ui/mouseLock_off.png"
 ButtonIcon.ImageColor3 = Color3.fromRGB(255, 0, 100)
 Instance.new("UICorner", LockButton).CornerRadius = UDim.new(1, 0)
@@ -43,7 +43,7 @@ Crosshair.AnchorPoint = Vector2.new(0.5, 0.5)
 Crosshair.Position = UDim2.new(0.5, 0, 0.5, -29)
 Crosshair.Size = UDim2.new(0, 27, 0, 27)
 Crosshair.BackgroundTransparency = 1
-Crosshair.Image = "http://www.roblox.com/asset/?id=6480864794"
+Crosshair.Image = "rbxasset://textures/MouseLockedCursor.png"
 Crosshair.Visible = false -- 初始关闭
 
 -- --- 2. 核心变量 ---
