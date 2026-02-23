@@ -5,7 +5,7 @@
 -- ==================== SETTINGS ====================
 local CrosshairSettings = {
     -- URL gambar crosshair (ganti dengan ID asset Anda)
-    CrosshairImage = "rbxasset://textures/ui/crosshair.png",
+    CrosshairImage = "rbxassetid://6480864794",
     
     -- Ukuran crosshair
     CrosshairSize = UDim2.new(0, 32, 0, 32),
