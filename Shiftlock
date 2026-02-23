@@ -243,49 +243,55 @@ coroutine.wrap(OMQRQRC_fake_script)()
 
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
-local CoreGui = game:GetService("CoreGui")
 local player = Players.LocalPlayer
+local PlayerGui = player:WaitForChild("PlayerGui") -- Gunakan PlayerGui agar tidak error Permission
 
--- KONFIGURASI (Bisa kamu ganti sesuka hati)
-local CROSSHAIR_ID = "rbxassetid://6480864794" -- Pastikan pakai rbxassetid://
-local CROSSHAIR_SIZE = UDim2.new(0, 40, 0, 40) 
-local CROSSHAIR_COLOR = Color3.fromRGB(255, 255, 255)
+-- 1. KONFIGURASI
+local ID_GAMBAR = "rbxassetid://6480864794" 
+local UKURAN = UDim2.new(0, 45, 0, 45)
 
--- Pembuatan UI
+-- 2. BUAT UI CROSSHAIR
 local CrosshairGui = Instance.new("ScreenGui")
-local CrosshairLabel = Instance.new("ImageLabel")
+CrosshairGui.Name = "CrosshairSystem"
+CrosshairGui.Parent = PlayerGui -- Simpan di PlayerGui
+CrosshairGui.IgnoreGuiInset = true
+CrosshairGui.DisplayOrder = 100
 
-CrosshairGui.Name = "FixedCrosshairGui"
-CrosshairGui.Parent = CoreGui
-CrosshairGui.DisplayOrder = 999 -- Sangat tinggi agar tidak tertutup UI lain
-CrosshairGui.IgnoreGuiInset = true -- Agar benar-benar di tengah layar teknis
+local Crosshair = Instance.new("ImageLabel")
+Crosshair.Name = "Pointer"
+Crosshair.Parent = CrosshairGui
+Crosshair.AnchorPoint = Vector2.new(0.5, 0.5)
+Crosshair.Position = UDim2.new(0.5, 0, 0.5, 0)
+Crosshair.Size = UKURAN
+Crosshair.BackgroundTransparency = 1
+Crosshair.Image = ID_GAMBAR
+Crosshair.Visible = false 
 
-CrosshairLabel.Name = "CrosshairCenter"
-CrosshairLabel.Parent = CrosshairGui
-CrosshairLabel.AnchorPoint = Vector2.new(0.5, 0.5)
-CrosshairLabel.BackgroundTransparency = 1
-CrosshairLabel.Position = UDim2.new(0.5, 0, 0.5, 0)
-CrosshairLabel.Size = CROSSHAIR_SIZE
-CrosshairLabel.Image = CROSSHAIR_ID
-CrosshairLabel.ImageColor3 = CROSSHAIR_COLOR
-CrosshairLabel.Visible = false
+-- 3. LOGIKA PENDETEKSI
+task.spawn(function()
+    -- Mencari tombol di CoreGui (Jika script dijalankan sebagai Plugin/Exploit) 
+    -- ATAU di PlayerGui (Jika dijalankan sebagai LocalScript game)
+    local function FindButton()
+        return game:GetService("CoreGui"):FindFirstChild("Shiftlock (StarterGui)") or PlayerGui:FindFirstChild("Shiftlock (StarterGui)")
+    end
 
--- Fungsi Deteksi Shiftlock Aktif
-RunService.RenderStepped:Connect(function()
-    local success, err = pcall(function()
-        local mainGui = CoreGui:FindFirstChild("Shiftlock (StarterGui)")
-        if mainGui then
-            local btn = mainGui:FindFirstChild("ImageButton")
-            if btn then
-                -- Cek apakah gambar tombol adalah mode ON
-                -- Kita pakai string.find untuk menghindari error perbedaan format path
-                if string.find(btn.Image, "mouseLock_on") then
-                    CrosshairLabel.Visible = true
-                else
-                    CrosshairLabel.Visible = false
-                end
+    local MainGui = nil
+    -- Tunggu sampai Gui muncul
+    while not MainGui do
+        MainGui = FindButton()
+        task.wait(0.5)
+    end
+
+    local Btn = MainGui:WaitForChild("ImageButton", 10)
+
+    if Btn then
+        RunService.RenderStepped:Connect(function()
+            -- Deteksi berdasarkan perubahan gambar pada tombol
+            if Btn.Image:find("on") then
+                Crosshair.Visible = true
+            else
+                Crosshair.Visible = false
             end
-        end
-    end)
-    if not success then CrosshairLabel.Visible = false end
+        end)
+    end
 end)
