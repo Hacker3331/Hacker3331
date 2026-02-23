@@ -1,0 +1,131 @@
+--// SERVICES
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local UserInputService = game:GetService("UserInputService")
+
+--// PLAYER
+local Player = Players.LocalPlayer
+local Camera = workspace.CurrentCamera
+
+--// CHARACTER
+local function GetCharacter()
+    local char = Player.Character or Player.CharacterAdded:Wait()
+    local hum = char:WaitForChild("Humanoid")
+    local root = char:WaitForChild("HumanoidRootPart")
+    return char, hum, root
+end
+
+--// GUI
+local PlayerGui = Player:WaitForChild("PlayerGui")
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Name = "CustomShiftLockGui"
+ScreenGui.ResetOnSpawn = false
+ScreenGui.Parent = PlayerGui
+
+--// SHIFTLOCK BUTTON
+local Button = Instance.new("ImageButton")
+Button.Parent = ScreenGui
+Button.Size = UDim2.new(0, 55, 0, 55)
+Button.Position = UDim2.new(0.85, 0, 0.7, 0)
+Button.BackgroundTransparency = 1
+Button.Image = "rbxasset://textures/ui/mouseLock_off@2x.png"
+Button.Active = true
+
+--// CROSSHAIR
+local Crosshair = Instance.new("ImageLabel")
+Crosshair.Parent = ScreenGui
+Crosshair.Size = UDim2.new(0, 20, 0, 20) -- ukuran crosshair
+Crosshair.Position = UDim2.new(0.5, 0, 0.5, 0)
+Crosshair.AnchorPoint = Vector2.new(0.5, 0.5)
+Crosshair.BackgroundTransparency = 1
+Crosshair.Image = "rbxassetid://6480864794" -- GANTI ID GAMBAR DI SINI
+Crosshair.Visible = false
+
+--// VARIABLES
+local ShiftLockEnabled = false
+local CameraOffset = CFrame.new(1.7, 0, 0)
+local OriginalCameraCF
+local RenderConnection
+
+--// DRAG SYSTEM
+local dragging = false
+local dragStart, startPos
+
+Button.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1
+    or input.UserInputType == Enum.UserInputType.Touch then
+        dragging = true
+        dragStart = input.Position
+        startPos = Button.Position
+
+        input.Changed:Connect(function()
+            if input.UserInputState == Enum.UserInputState.End then
+                dragging = false
+            end
+        end)
+    end
+end)
+
+Button.InputChanged:Connect(function(input)
+    if dragging and (
+        input.UserInputType == Enum.UserInputType.MouseMovement
+        or input.UserInputType == Enum.UserInputType.Touch
+    ) then
+        local delta = input.Position - dragStart
+        Button.Position = UDim2.new(
+            startPos.X.Scale,
+            startPos.X.Offset + delta.X,
+            startPos.Y.Scale,
+            startPos.Y.Offset + delta.Y
+        )
+    end
+end)
+
+--// SHIFTLOCK FUNCTIONS
+local function EnableShiftLock()
+    local _, humanoid, root = GetCharacter()
+
+    ShiftLockEnabled = true
+    Button.Image = "rbxasset://textures/ui/mouseLock_on@2x.png"
+    Crosshair.Visible = true
+
+    humanoid.AutoRotate = false
+    OriginalCameraCF = Camera.CFrame
+    Camera.CFrame = Camera.CFrame * CameraOffset
+
+    RenderConnection = RunService.RenderStepped:Connect(function()
+        local look = Camera.CFrame.LookVector
+        root.CFrame = CFrame.new(
+            root.Position,
+            root.Position + Vector3.new(look.X, 0, look.Z)
+        )
+    end)
+end
+
+local function DisableShiftLock()
+    local _, humanoid = GetCharacter()
+
+    ShiftLockEnabled = false
+    Button.Image = "rbxasset://textures/ui/mouseLock_off@2x.png"
+    Crosshair.Visible = false
+
+    humanoid.AutoRotate = true
+
+    if OriginalCameraCF then
+        Camera.CFrame = OriginalCameraCF
+    end
+
+    if RenderConnection then
+        RenderConnection:Disconnect()
+        RenderConnection = nil
+    end
+end
+
+--// BUTTON CLICK
+Button.MouseButton1Click:Connect(function()
+    if ShiftLockEnabled then
+        DisableShiftLock()
+    else
+        EnableShiftLock()
+    end
+end)
