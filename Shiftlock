@@ -243,48 +243,49 @@ coroutine.wrap(OMQRQRC_fake_script)()
 
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
+local CoreGui = game:GetService("CoreGui")
 local player = Players.LocalPlayer
-local mouse = player:GetMouse()
 
--- KONFIGURASI CROSSHAIR (Ganti ID di bawah untuk ganti gambar)
-local CROSSHAIR_IMAGE = "rbxasset://6480864794" -- Contoh ID PC
-local CROSSHAIR_SIZE = UDim2.new(0, 50, 0, 50) -- Ukuran crosshair
-local CROSSHAIR_COLOR = Color3.fromRGB(255, 255, 255) -- Warna (Putih)
+-- KONFIGURASI (Bisa kamu ganti sesuka hati)
+local CROSSHAIR_ID = "rbxassetid://6480864794" -- Pastikan pakai rbxassetid://
+local CROSSHAIR_SIZE = UDim2.new(0, 40, 0, 40) 
+local CROSSHAIR_COLOR = Color3.fromRGB(255, 255, 255)
 
--- Pembuatan UI Crosshair
+-- Pembuatan UI
 local CrosshairGui = Instance.new("ScreenGui")
 local CrosshairLabel = Instance.new("ImageLabel")
 
-CrosshairGui.Name = "CustomCrosshairGui"
-CrosshairGui.Parent = game.CoreGui -- Agar tetap muncul di atas UI lain
-CrosshairGui.DisplayOrder = 10
+CrosshairGui.Name = "FixedCrosshairGui"
+CrosshairGui.Parent = CoreGui
+CrosshairGui.DisplayOrder = 999 -- Sangat tinggi agar tidak tertutup UI lain
+CrosshairGui.IgnoreGuiInset = true -- Agar benar-benar di tengah layar teknis
 
-CrosshairLabel.Name = "Crosshair"
+CrosshairLabel.Name = "CrosshairCenter"
 CrosshairLabel.Parent = CrosshairGui
 CrosshairLabel.AnchorPoint = Vector2.new(0.5, 0.5)
-CrosshairLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-CrosshairLabel.BackgroundTransparency = 1.000
-CrosshairLabel.Position = UDim2.new(0.5, 0, 0.5, 0) -- Di tengah layar
+CrosshairLabel.BackgroundTransparency = 1
+CrosshairLabel.Position = UDim2.new(0.5, 0, 0.5, 0)
 CrosshairLabel.Size = CROSSHAIR_SIZE
-CrosshairLabel.Image = CROSSHAIR_IMAGE
+CrosshairLabel.Image = CROSSHAIR_ID
 CrosshairLabel.ImageColor3 = CROSSHAIR_COLOR
-CrosshairLabel.Visible = false -- Default mati
+CrosshairLabel.Visible = false
 
--- Logika deteksi apakah Shiftlock sedang aktif dari script asli
+-- Fungsi Deteksi Shiftlock Aktif
 RunService.RenderStepped:Connect(function()
-    -- Mencari button dari script aslimu untuk mengecek statusnya
-    local success, result = pcall(function()
-        local shiftButton = game.CoreGui:FindFirstChild("Shiftlock (StarterGui)"):FindFirstChild("ImageButton")
-        
-        -- Jika image button menggunakan texture 'ON', maka tampilkan crosshair
-        if shiftButton and shiftButton.Image == "rbxasset://textures/ui/mouseLock_on@2x.png" then
-            CrosshairLabel.Visible = true
-        else
-            CrosshairLabel.Visible = false
+    local success, err = pcall(function()
+        local mainGui = CoreGui:FindFirstChild("Shiftlock (StarterGui)")
+        if mainGui then
+            local btn = mainGui:FindFirstChild("ImageButton")
+            if btn then
+                -- Cek apakah gambar tombol adalah mode ON
+                -- Kita pakai string.find untuk menghindari error perbedaan format path
+                if string.find(btn.Image, "mouseLock_on") then
+                    CrosshairLabel.Visible = true
+                else
+                    CrosshairLabel.Visible = false
+                end
+            end
         end
     end)
-    
-    if not success then
-        CrosshairLabel.Visible = false
-    end
+    if not success then CrosshairLabel.Visible = false end
 end)
