@@ -11,20 +11,9 @@ ShiftLockGui.Name = "shiftlockk"
 ShiftLockGui.ResetOnSpawn = false
 ShiftLockGui.Parent = PlayerGui
 
-local LockButton = Instance.new("ImageButton")
-LockButton.Name = "LockButton"
-LockButton.Parent = ShiftLockGui
-LockButton.AnchorPoint = Vector2.new(0.5, 0.5)
-LockButton.Position = UDim2.new(0.85, 0, 0.5, 0)
-LockButton.Size = UDim2.new(0, 100, 0, 100)
-LockButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-LockButton.BackgroundTransparency = 0.2
-LockButton.BorderSizePixel = 0
-LockButton.Image = ""
-
 local ButtonIcon = Instance.new("ImageLabel")
 ButtonIcon.Name = "btnIcon"
-ButtonIcon.Parent = LockButton
+ButtonIcon.Parent = ShiftLockGui
 ButtonIcon.BackgroundTransparency = 1
 ButtonIcon.Position = UDim2.new(0.15, 0, 0.15, 0)
 ButtonIcon.Size = UDim2.new(0.7, 0, 0.7, 0)
@@ -112,7 +101,7 @@ end
 
 -- --- 5. 事件绑定与重生逻辑 ---
 
-LockButton.MouseButton1Click:Connect(function()
+ButtonIcon.MouseButton1Click:Connect(function()
     ToggleShiftLock(not isShiftLockEnabled)
 end)
 
@@ -133,15 +122,15 @@ end)
 
 -- (保留你的拖拽逻辑)
 local dragging, dragStart, startPos
-LockButton.InputBegan:Connect(function(input)
+ButtonIcon.InputBegan:Connect(function(input)
     if input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.MouseButton1 then
-        dragging = true dragStart = input.Position startPos = LockButton.Position
+        dragging = true dragStart = input.Position startPos = ButtonIcon.Position
     end
 end)
-LockButton.InputChanged:Connect(function(input)
+ButtonIcon.InputChanged:Connect(function(input)
     if dragging and (input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.MouseMovement) then
         local delta = input.Position - dragStart
-        LockButton.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+        ButtonIcon.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
     end
 end)
 UserInputService.InputEnded:Connect(function(input)
