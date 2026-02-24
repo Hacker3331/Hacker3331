@@ -5,7 +5,6 @@ local UserInputService = game:GetService("UserInputService")
 local LocalPlayer = Players.LocalPlayer
 local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
 
--- --- 1. GUI 系统 (完全保留你的原始准心逻辑) ---
 local ShiftLockGui = Instance.new("ScreenGui")
 ShiftLockGui.Name = "shiftlockk"
 ShiftLockGui.ResetOnSpawn = false
@@ -43,17 +42,14 @@ Crosshair.AnchorPoint = Vector2.new(0.5, 0.5)
 Crosshair.Position = UDim2.new(0.5, 0, 0.5, -29)
 Crosshair.Size = UDim2.new(0, 27, 0, 27)
 Crosshair.BackgroundTransparency = 1
-Crosshair.Image = "rbxasset://textures/MouseLockedCursor.png"
-Crosshair.Visible = false -- 初始关闭
+Crosshair.Image = "rbxassetid://6480864782"
+Crosshair.Visible = false
 
--- --- 2. 核心变量 ---
 local isShiftLockEnabled = false
 local userGameSettings = nil
 local OFFSET_VAL = 1.75 
 
--- --- 3. 核心循环 (强制 RotationType) ---
 local function enforceOfficialSync()
-    -- 只有开启时才运行
     if not isShiftLockEnabled then 
         RunService:UnbindFromRenderStep("FinalNailSync")
         return 
@@ -64,7 +60,6 @@ local function enforceOfficialSync()
     local cam = workspace.CurrentCamera
     if not hum then return end
 
-    -- 每一帧都强制 RotationType，直到关闭
     if not userGameSettings then
         pcall(function() userGameSettings = UserSettings():GetService("UserGameSettings") end)
     end
@@ -74,28 +69,23 @@ local function enforceOfficialSync()
         end
     end
 
-    -- 锁定鼠标
     UserInputService.MouseBehavior = Enum.MouseBehavior.LockCenter
 
-    -- 钉子级同步
     local dist = (cam.Focus.Position - cam.CFrame.Position).Magnitude
     if dist > 0.6 then
         local rawCFrame = cam.CFrame
         cam.CFrame = rawCFrame * CFrame.new(OFFSET_VAL, 0, 0)
         cam.Focus = cam.CFrame * CFrame.new(0, 0, -dist)
-        -- 核心防御：强制归零物理偏移，绝对防止叠加
         hum.CameraOffset = Vector3.new(0, 0, 0)
     else
         hum.CameraOffset = Vector3.new(0, 0, 0)
     end
 end
 
--- --- 4. 切换函数 ---
 local function ToggleShiftLock(enabled)
     isShiftLockEnabled = enabled
-    Crosshair.Visible = enabled -- 只在手动点击按钮时改变显隐
+    Crosshair.Visible = enabled
     
-    -- 切换前彻底删除旧绑定，防止双重循环
     RunService:UnbindFromRenderStep("FinalNailSync")
 
     if enabled then
@@ -116,28 +106,22 @@ local function ToggleShiftLock(enabled)
     end
 end
 
--- --- 5. 事件绑定与重生逻辑 ---
 
 LockButton.MouseButton1Click:Connect(function()
     ToggleShiftLock(not isShiftLockEnabled)
 end)
 
--- 【关键修复】：重生逻辑绝对不碰准心显隐
 LocalPlayer.CharacterAdded:Connect(function(char)
-    -- 1. 立即停止旧的渲染循环
     RunService:UnbindFromRenderStep("FinalNailSync")
     
-    -- 2. 如果之前是开启状态，只恢复逻辑，不动准心
     if isShiftLockEnabled then
         local hum = char:WaitForChild("Humanoid")
-        hum.CameraOffset = Vector3.new(0, 0, 0) -- 强制清空
+        hum.CameraOffset = Vector3.new(0, 0, 0)
         task.wait(0.1)
-        -- 重新绑定新角色的循环
         RunService:BindToRenderStep("FinalNailSync", Enum.RenderPriority.Camera.Value + 1, enforceOfficialSync)
     end
 end)
 
--- (保留你的拖拽逻辑)
 local dragging, dragStart, startPos
 LockButton.InputBegan:Connect(function(input)
     if input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.MouseButton1 then
