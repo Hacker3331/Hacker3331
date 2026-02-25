@@ -42,7 +42,7 @@ Crosshair.AnchorPoint = Vector2.new(0.5, 0.5)
 Crosshair.Position = UDim2.new(0.5, 0, 0.5, -29)
 Crosshair.Size = UDim2.new(0, 27, 0, 27)
 Crosshair.BackgroundTransparency = 1
-Crosshair.Image = "rbxasset://textures/MouseLockedCursor.png"
+Crosshair.Image = "rbxassetid://10181263678"
 Crosshair.Visible = false
 
 local isShiftLockEnabled = false
