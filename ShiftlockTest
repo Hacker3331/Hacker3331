@@ -6,6 +6,7 @@ local LocalPlayer = Players.LocalPlayer
 local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
 
 local ShiftLockGui = Instance.new("ScreenGui")
+ShiftLockGui.IgnoreGuiInset = true
 ShiftLockGui.Name = "shiftlockk"
 ShiftLockGui.ResetOnSpawn = false
 ShiftLockGui.Parent = PlayerGui
